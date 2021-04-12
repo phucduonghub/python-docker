@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+    working_dir: /code
+    environment:
+      FLASK_ENV: development
+    command: "flask run"
+
+  redis:
+      image: "redis:alpine"
+      ports:
+       - "2397:2397"
+      command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+      volumes:
+        - ./data:/data
+        - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+
